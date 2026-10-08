@@ -1,0 +1,28 @@
+name: Autograding
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  grade:
+    name: Grade Bash For Loop Assignment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout student submission
+        uses: actions/checkout@v4
+
+      - name: Install Bash and utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bash coreutils
+
+      - name: Make files executable
+        run: |
+          chmod +x student.sh
+          chmod +x tests/test.sh
+
+      - name: Run automated tests
+        run: |
+          ./tests/test.sh
